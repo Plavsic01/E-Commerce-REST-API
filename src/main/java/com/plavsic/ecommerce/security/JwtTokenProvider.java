@@ -4,6 +4,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
@@ -47,10 +49,14 @@ public class JwtTokenProvider {
     }
 
     public boolean validateToken(String token) {
-        Jwts.parser()
-                .verifyWith((SecretKey) getKey())
-                .build()
-                .parse(token);
+        try {
+            Jwts.parser()
+                    .verifyWith((SecretKey) getKey())
+                    .build()
+                    .parse(token);
+        }catch (SignatureException e) {
+            throw new BadCredentialsException("Invalid token: " + e.getMessage());
+        }
         return true;
     }
 

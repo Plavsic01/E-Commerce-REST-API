@@ -3,6 +3,7 @@ package com.plavsic.ecommerce.controller.auth;
 import com.plavsic.ecommerce.dto.auth.AuthResponseDTO;
 import com.plavsic.ecommerce.dto.auth.LoginDTO;
 import com.plavsic.ecommerce.generic.service.AuthService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,5 +28,13 @@ public class AuthController {
         authResponse.setAccessToken(token);
         return new ResponseEntity<>(authResponse, HttpStatus.OK);
     }
+
+
+    @PostMapping("/clear-session")
+    public ResponseEntity<String> clearSession(HttpSession session){
+        session.invalidate();
+        return new ResponseEntity<>("Session Wiped!", HttpStatus.OK);
+    }
+
 
 }

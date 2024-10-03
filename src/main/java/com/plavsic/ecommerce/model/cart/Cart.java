@@ -6,12 +6,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
 public class Cart {
-    private User user;
-    private List<CartItem> cartItems;
+    private String username;
+    private List<CartItem> cartItems = new ArrayList<>();
 }

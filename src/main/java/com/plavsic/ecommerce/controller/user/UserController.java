@@ -20,9 +20,9 @@ public class UserController extends GenericController<UserDTO,User> {
         super(service);
     }
 
-    @Override
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<UserDTO> find(Long id) {
-        return super.find(id);
-    }
+//    @Override
+//    @PreAuthorize("hasRole('USER')")
+//    public ResponseEntity<UserDTO> find(Long id) {
+//        return super.find(id);
+//    }
 }
