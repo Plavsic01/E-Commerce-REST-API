@@ -32,11 +32,11 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toSet());
 
-        return new org.springframework.security.core.userdetails.User(
+        return new AuthUserDetails(
+                user.getId(),
                 user.getUsername(),
                 user.getPassword(),
                 grantedAuthorities
         );
-
     }
 }

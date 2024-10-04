@@ -14,12 +14,21 @@ public class CartService {
 
     private final BookRepository bookRepository;
 
+    public Cart getCart(HttpSession session) {
+        Cart cart = (Cart) session.getAttribute("cart");
+        return cart;
+    }
+
     public void addToCart(HttpSession session,Long bookId,int quantity,String username) {
         Cart userCart;
         Book book = findBookById(bookId);
         boolean bookFound = false;
 
         if(book == null){
+            return;
+        }
+
+        if(book.getQuantity() < quantity){
             return;
         }
 
@@ -56,9 +65,6 @@ public class CartService {
 
     private Book findBookById(Long id) {
         Book book = bookRepository.findById(id).orElse(null);
-        if(book == null) {
-            return null;
-        }
         return book;
     }
 

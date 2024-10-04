@@ -18,7 +18,7 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
     private String secret = generateSecretKey();
-    private long expiration = 60 * 1000; // 60s * 1000 = 1 minute in milliseconds
+    private long expiration = 60 * 1000 * 60; // 60s * 1000 = 1 minute in milliseconds
 
     public String generateToken(Authentication authentication) {
         String username = authentication.getName();

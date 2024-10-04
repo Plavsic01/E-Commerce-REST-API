@@ -18,4 +18,5 @@ public class BookDTO {
     private int pages;
     private int yearOfPublication;
     private int edition;
+    private int quantity;
 }

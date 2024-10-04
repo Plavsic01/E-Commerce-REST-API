@@ -32,7 +32,23 @@ public class SecurityConfig {
         http.csrf(csfr -> csfr.disable())
                 .authorizeHttpRequests(authorize -> {
                     authorize.requestMatchers("/api/auth/**").permitAll();
-                    authorize.requestMatchers("/api/cart/**").permitAll();
+                    authorize.requestMatchers(HttpMethod.GET,"/api/users/{id}").hasAnyRole("USER","ADMIN");
+                    authorize.requestMatchers(HttpMethod.GET,"/api/users/**").hasRole("ADMIN");
+                    authorize.requestMatchers(HttpMethod.POST,"/api/users/**").permitAll(); // Register user
+                    authorize.requestMatchers(HttpMethod.PUT,"/api/users/**").hasAnyRole("USER","ADMIN");
+                    authorize.requestMatchers(HttpMethod.DELETE,"/api/users/**").hasAnyRole("USER","ADMIN");
+                    authorize.requestMatchers(HttpMethod.GET,"/api/books/**").permitAll();
+                    authorize.requestMatchers(HttpMethod.POST,"/api/books/**").hasRole("ADMIN");
+                    authorize.requestMatchers(HttpMethod.PUT,"/api/books/**").hasRole("ADMIN");
+                    authorize.requestMatchers(HttpMethod.DELETE,"/api/books/**").hasRole("ADMIN");
+                    authorize.requestMatchers(HttpMethod.GET,"/api/orders/**").hasAnyRole("USER","ADMIN");
+                    authorize.requestMatchers(HttpMethod.GET,"/api/orders").hasRole("ADMIN");
+                    authorize.requestMatchers(HttpMethod.POST,"/api/orders/**").hasAnyRole("USER","ADMIN");
+                    authorize.requestMatchers(HttpMethod.PUT,"/api/orders/**").hasRole("ADMIN");
+                    authorize.requestMatchers(HttpMethod.DELETE,"/api/orders/**").hasRole("ADMIN");
+                    authorize.requestMatchers(HttpMethod.GET,"/api/cart/**").hasAnyRole("USER","ADMIN");
+                    authorize.requestMatchers(HttpMethod.POST,"/api/cart/**").hasAnyRole("USER","ADMIN");
+                    authorize.requestMatchers(HttpMethod.DELETE,"/api/cart/**").hasAnyRole("USER","ADMIN");
                     authorize.requestMatchers(HttpMethod.OPTIONS,"/**").permitAll();
                     authorize.anyRequest().authenticated();
                 }).httpBasic(Customizer.withDefaults());

@@ -1,16 +1,15 @@
 package com.plavsic.ecommerce.controller.cart;
 
-import com.plavsic.ecommerce.model.book.Book;
 import com.plavsic.ecommerce.model.cart.Cart;
-import com.plavsic.ecommerce.model.cart.CartItem;
 import com.plavsic.ecommerce.service.cart.CartService;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api/cart")
@@ -20,9 +19,12 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping
-    public String getCart(HttpSession session) {
-        Cart cart = (Cart) session.getAttribute("cart");
-        return cart.toString();
+    public ResponseEntity<Cart> getCart(HttpSession session) {
+        Cart cart = cartService.getCart(session);
+        if (cart == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(cart, HttpStatus.OK);
     }
 
 
@@ -36,9 +38,7 @@ public class CartController {
     }
 
     @DeleteMapping
-    public void deleteCart(@AuthenticationPrincipal UserDetails userDetails,
-                           @RequestParam("bookId") Long bookId,
-                           HttpSession session) {
+    public void deleteCart(@RequestParam("bookId") Long bookId, HttpSession session) {
         cartService.removeFromCart(session,bookId);
     }
 

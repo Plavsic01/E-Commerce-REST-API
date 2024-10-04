@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,16 +22,20 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false)
     private User user;
-//    @Column(nullable = false)
+    @Column(nullable = false)
     private LocalDateTime orderDate;
-//    @Column(nullable = false)
+    @Column(nullable = true)
+    private String note;
+    @Column(nullable = false)
+    private String address;
+    @Column(nullable = false)
     private int totalPrice;
-//    @Column(nullable = false)
+    @Column(nullable = false)
     private Status status;
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
-//    @Column(nullable = false)
-    private List<OrderItem> items;
+    @Column(nullable = false)
+    private List<OrderItem> items = new ArrayList<>();
 }

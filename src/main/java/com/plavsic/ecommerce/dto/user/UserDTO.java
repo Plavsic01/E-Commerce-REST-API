@@ -1,11 +1,15 @@
 package com.plavsic.ecommerce.dto.user;
 
+import com.plavsic.ecommerce.model.user.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,4 +28,5 @@ public class UserDTO {
     private String username;
     @NotNull
     private String password;
+    private Set<Role> roles = new HashSet<>();
 }

@@ -32,8 +32,12 @@ public class AuthController {
 
     @PostMapping("/clear-session")
     public ResponseEntity<String> clearSession(HttpSession session){
-        session.invalidate();
-        return new ResponseEntity<>("Session Wiped!", HttpStatus.OK);
+        if(session.getAttribute("cart") != null){
+            session.invalidate();
+            return new ResponseEntity<>("Session Wiped!", HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>("Session Not Found!", HttpStatus.NOT_FOUND);
     }
 
 

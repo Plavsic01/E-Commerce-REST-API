@@ -31,4 +31,6 @@ public class Book {
     private int yearOfPublication;
     @Column(nullable = false)
     private int edition;
+    @Column(nullable = false)
+    private int quantity;
 }

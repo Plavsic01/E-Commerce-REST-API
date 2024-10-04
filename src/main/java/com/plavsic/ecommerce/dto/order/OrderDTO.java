@@ -2,6 +2,7 @@ package com.plavsic.ecommerce.dto.order;
 
 import com.plavsic.ecommerce.dto.user.UserDTO;
 import com.plavsic.ecommerce.model.order.Status;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +19,9 @@ public class OrderDTO {
     private Long id;
     private UserDTO user;
     private LocalDateTime orderDate;
+    private String note;
+    @NotNull
+    private String address;
     private int totalPrice;
     private Status status;
     private List<OrderItemDTO> items;
