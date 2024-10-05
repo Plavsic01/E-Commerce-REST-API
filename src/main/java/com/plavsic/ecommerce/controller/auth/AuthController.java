@@ -36,7 +36,6 @@ public class AuthController {
             session.invalidate();
             return new ResponseEntity<>("Session Wiped!", HttpStatus.OK);
         }
-
         return new ResponseEntity<>("Session Not Found!", HttpStatus.NOT_FOUND);
     }
 
