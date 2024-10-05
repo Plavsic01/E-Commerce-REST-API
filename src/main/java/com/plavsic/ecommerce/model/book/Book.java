@@ -23,7 +23,7 @@ public class Book {
     private String author;
     @Column(nullable = false)
     private String publisher;
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String isbn;
     @Column(nullable = false)
     private int pages;
@@ -33,4 +33,6 @@ public class Book {
     private int edition;
     @Column(nullable = false)
     private int quantity;
+    @Column(nullable = false)
+    private int price;
 }

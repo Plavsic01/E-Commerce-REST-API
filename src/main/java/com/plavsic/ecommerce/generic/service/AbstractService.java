@@ -101,7 +101,7 @@ public abstract class AbstractService<T,U> implements GenericService<T>{
     }
 
 
-    private T update(Long id, T t) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    protected T update(Long id, T t) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         U obj = repository.findById(id).orElse(null);
         if(obj == null) {
             return null;

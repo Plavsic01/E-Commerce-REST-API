@@ -22,6 +22,7 @@ public class OrderDTO {
     private String note;
     @NotNull
     private String address;
+    @NotNull
     private int totalPrice;
     private Status status;
     private List<OrderItemDTO> items;
